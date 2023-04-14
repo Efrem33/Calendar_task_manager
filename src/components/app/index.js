@@ -1,6 +1,6 @@
 
 import moment from 'moment/moment';
-import React from 'react';
+import React, { useState } from 'react';
 import Moment from 'react-moment';
 import { Title } from '../title';
 import { Monitor } from '../monitor';
@@ -19,15 +19,25 @@ const ShadowWrapper = styled('div')`
 
 function App() {
 
-  window.moment = moment;
   moment.updateLocale( "ru",{week:{dow: 1}});
-  const today = moment();
+  // window.moment = moment;
+  // const today = moment();
+  const [today, setToday] = useState(moment());
   const startDay = today.clone().startOf("month").startOf('week');
+
+  const prevHendler = ()=> setToday(prev => prev.clone().subtract(1, 'month'));
+  const nextHendler = ()=> setToday(next => next.clone().add(1, "month"));
+  const todayHendler = ()=> setToday(moment()); 
 
   return (
     <ShadowWrapper >
       <Title />
-      <Monitor today={ today } />
+      <Monitor 
+        today={ today } 
+        prevHendler={ prevHendler } 
+        nextHendler={ nextHendler } 
+        todayHendler={ todayHendler } 
+      />
       <CalendarGrid startDay={startDay}/>
     
     </ShadowWrapper>

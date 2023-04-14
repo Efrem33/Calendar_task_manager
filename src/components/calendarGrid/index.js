@@ -49,14 +49,12 @@ const CalendarGrid = ({startDay}) => {
   const day = startDay.clone().subtract(1, 'day');
   const daysArray = [...Array(42)].map(() => day.add(1, 'day').clone());
 
-  console.log(daysArray);
-
   return (
     <GridWrapper>
       {
         daysArray.map((dayItem) => (
           <CellWrapper
-            key={dayItem.format('DDMMYYYY')}
+            key={dayItem.unix()}
             isWeekend={dayItem.day()===6 || dayItem.day()===0}
           >
             <RowInCell
