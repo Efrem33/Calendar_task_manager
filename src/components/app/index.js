@@ -37,8 +37,11 @@ function App() {
         prevHendler={ prevHendler } 
         nextHendler={ nextHendler } 
         todayHendler={ todayHendler } 
-      />
-      <CalendarGrid startDay={startDay}/>
+        />
+      <CalendarGrid 
+        startDay={ startDay } 
+        today={ today } 
+        />
     
     </ShadowWrapper>
   );
