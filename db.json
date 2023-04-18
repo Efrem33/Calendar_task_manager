@@ -1,0 +1,8 @@
+{
+  "events": [
+    {"id": 1, "title": "Go to the bad", "description": "Go to the bad", "date": 1681799875},
+    {"id": 2, "title": "Go to the bad", "description": "Go to the bad", "date": 1681800423},
+    {"id": 3, "title": "Go to the bad in March", "description": "Go to the bad March", "date": 1679122022},
+    {"id": 4, "title": "Go to the bad in May", "description": "Go to the bad May", "date": 1684565222}
+  ]
+}

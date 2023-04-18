@@ -43,14 +43,13 @@ const CurrentDay = styled('div')`
 `;
 
 
-const CalendarGrid = ({ startDay, today }) => {
+const CalendarGrid = ({ startDay, today, totalDays }) => {
 
   const isCurrentDay = (day) => moment().isSame(day, 'day');
   const isSelectedMonth = (day) => today.isSame(day, 'month');
 
-  const totalDays = 42;
   const day = startDay.clone().subtract(1, 'day');
-  const daysArray = [...Array(42)].map(() => day.add(1, 'day').clone());
+  const daysArray = [...Array(totalDays)].map(() => day.add(1, 'day').clone());
 
   return (
     <>
