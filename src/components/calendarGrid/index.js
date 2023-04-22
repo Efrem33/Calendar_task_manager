@@ -31,6 +31,7 @@ const ShowDayWrapper = styled.div`
 
 const DayWrapper = styled.div`
   display: flex;
+  cursor: pointer;
   height: 33px;
   width: 33px;
   align-items: center;
@@ -51,11 +52,13 @@ const CurrentDay = styled.div`
 const EventListWrapper = styled.ul`
   margin: unset;
   list-style-position: inside;
-  padding: 0 4px;
+  padding: 0 4px 4px 4px;
 `;
 
 const EventItemWrapper = styled.button`
   overflow: hidden;
+  background-color: #886ce4;
+  border-radius: 4px;
   hyphens: auto; 
   text-align: left;
   white-space: nowrap;
@@ -63,11 +66,10 @@ const EventItemWrapper = styled.button`
   border: unset;
   max-width: 130px;
   color: #DDDDDD;
-  background: unset;
   cursor: pointer;
   margin: 0;
-  padding: 0;
-  
+  padding: 1px 3px;
+
   :hover {
     overflow: inherit;
     text-overflow: inherit;
@@ -76,7 +78,7 @@ const EventItemWrapper = styled.button`
   }
 `;
 
-const CalendarGrid = ({ startDay, today, totalDays, events }) => {
+const CalendarGrid = ({ startDay, today, totalDays, events, openFormHandler }) => {
 
   const isCurrentDay = (day) => moment().isSame(day, 'day');
   const isSelectedMonth = (day) => today.isSame(day, 'month');
@@ -87,11 +89,12 @@ const CalendarGrid = ({ startDay, today, totalDays, events }) => {
   return (
     <>
       <GridWrapper isHeader>
-        {[...Array(7)].map((e, i) => <CellWrapper isHeader isSelectedMonth>
+        {[...Array(7)].map((e, i) => <CellWrapper isHeader isSelectedMonth key={i}>
           
           <RowInCell
                 justifyContent={'flex-end'}
                 pr={1}
+                key={i}
               >
             {moment().day(i+1).format('ddd')}
 
@@ -110,7 +113,7 @@ const CalendarGrid = ({ startDay, today, totalDays, events }) => {
             >
               <RowInCell justifyContent={'flex-end'} >
                 <ShowDayWrapper>
-                  <DayWrapper>
+                  <DayWrapper onClick={()=>{openFormHandler('Create')}}>
                     {
                       isCurrentDay(dayItem) ? (
                         <CurrentDay>{dayItem.format('D')}</CurrentDay>
@@ -126,7 +129,7 @@ const CalendarGrid = ({ startDay, today, totalDays, events }) => {
                         .filter(event => event.date >= dayItem.format('X') && event.date <= dayItem.clone().endOf('day').format('X') )
                         .map(event => (
                           <li key={event.id}>
-                            <EventItemWrapper>
+                            <EventItemWrapper onClick={()=>{openFormHandler('Update', event)}}>
                               {event.title}
                             </EventItemWrapper>
                           </li>
