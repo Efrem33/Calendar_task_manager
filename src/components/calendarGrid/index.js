@@ -20,7 +20,13 @@ const CellWrapper = styled.div`
 const RowInCell = styled.div`
   display: flex;
   justify-content: ${props => props.justifyContent ? props.justifyContent : 'flex-start'};
+  flex-direction: column;
   ${props => props.pr && `padding-right: ${props.pr * 8}px`}
+`;
+
+const ShowDayWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
 `;
 
 const DayWrapper = styled.div`
@@ -32,7 +38,7 @@ const DayWrapper = styled.div`
   margin: 2px;
 `;
 
-const CurrentDay = styled('div')`
+const CurrentDay = styled.div`
   height: 100%;
   width: 100%;
   background: #f00;
@@ -42,8 +48,35 @@ const CurrentDay = styled('div')`
   justify-content: center;
 `;
 
+const EventListWrapper = styled.ul`
+  margin: unset;
+  list-style-position: inside;
+  padding: 0 4px;
+`;
 
-const CalendarGrid = ({ startDay, today, totalDays }) => {
+const EventItemWrapper = styled.button`
+  overflow: hidden;
+  hyphens: auto; 
+  text-align: left;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  border: unset;
+  max-width: 130px;
+  color: #DDDDDD;
+  background: unset;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  
+  :hover {
+    overflow: inherit;
+    text-overflow: inherit;
+    white-space: inherit;
+    height: auto;
+  }
+`;
+
+const CalendarGrid = ({ startDay, today, totalDays, events }) => {
 
   const isCurrentDay = (day) => moment().isSame(day, 'day');
   const isSelectedMonth = (day) => today.isSame(day, 'month');
@@ -75,14 +108,31 @@ const CalendarGrid = ({ startDay, today, totalDays }) => {
               isWeekend={dayItem.day()===6 || dayItem.day()===0}
               isSelectedMonth={isSelectedMonth(dayItem)}
             >
-              <RowInCell
-                justifyContent={'flex-end'}
-              >
-                <DayWrapper>
-                  {!isCurrentDay(dayItem) && dayItem.format('D')}
-                  {isCurrentDay(dayItem) && <CurrentDay>{dayItem.format('D')}</CurrentDay>}
-                  
-                </DayWrapper>
+              <RowInCell justifyContent={'flex-end'} >
+                <ShowDayWrapper>
+                  <DayWrapper>
+                    {
+                      isCurrentDay(dayItem) ? (
+                        <CurrentDay>{dayItem.format('D')}</CurrentDay>
+                      ) : (
+                        dayItem.format('D')
+                      )
+                    }
+                  </DayWrapper>
+                </ShowDayWrapper>
+                  <EventListWrapper>
+                    {
+                      events
+                        .filter(event => event.date >= dayItem.format('X') && event.date <= dayItem.clone().endOf('day').format('X') )
+                        .map(event => (
+                          <li key={event.id}>
+                            <EventItemWrapper>
+                              {event.title}
+                            </EventItemWrapper>
+                          </li>
+                        ))
+                    }
+                  </EventListWrapper>
               </RowInCell>
             </CellWrapper>
           ))

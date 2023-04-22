@@ -35,8 +35,7 @@ function App() {
   const [events, setEvents] = useState([]);
   const startDateQuery = startDay.clone().format('X');
   const endDateQuery = startDay.clone().add(totalDays, 'days').format('X');
-  console.log('startDateQuery', startDateQuery);
-  console.log('endDateQuery', endDateQuery);
+  
   useEffect(() => {
     fetch(`${url}/events?date_gte=${startDateQuery}&date_lte=${endDateQuery}`)
     .then(res => res.json())
@@ -44,7 +43,7 @@ function App() {
       console.log('Response', res);
       setEvents(res);
     });
-  },[]);
+  },[today]);
 
   return (
     <ShadowWrapper >
@@ -59,6 +58,7 @@ function App() {
         startDay={ startDay } 
         today={ today } 
         totalDays = { totalDays }
+        events = {events}
         />
     
     </ShadowWrapper>
