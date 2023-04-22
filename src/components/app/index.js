@@ -121,6 +121,30 @@ function App() {
     }));
   };
 
+  const eventFetchHendler = () => {
+    const fetchUrl = method === 'Update' ? `${url}/events/${event.id}` : `${url}/events`;
+    const httpMethod = method === 'Update' ? 'PATCH' : 'POST';
+
+    fetch(fetchUrl, {
+      method: httpMethod,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(event)
+    })
+    .then(res => res.json())
+    .then(res => {
+      console.log(res);
+      if(method === 'Update') {
+        setEvents(prevState => prevState.map(eventEl => eventEl.id === res.id ? res : eventEl));
+      } else {
+        setEvents(prevState => [...prevState, res]);
+      }
+      
+      canselButtonHendler();
+    });
+  };
+
   return (
     <>
     {
@@ -138,7 +162,7 @@ function App() {
             />
             <ButtonsWrapper>
               <button onClick={canselButtonHendler} >Cansel</button>  
-              <button>{method}</button>  
+              <button onClick={eventFetchHendler} >{method}</button>  
             </ButtonsWrapper>
           </FormWrapper>
         </FromPositionWrapper>

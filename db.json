@@ -1,9 +1,52 @@
 {
   "events": [
-    {"id": 1, "title": "Go to the bad", "description": "Go to the bad", "date": 1681799875},
-    {"id": 2, "title": "Go to the magazine", "description": "Go to the magazine", "date": 1681800423},
-    {"id": 3, "title": "Go to the bad in March", "description": "Go to the bad March", "date": 1679122022},
-    {"id": 4, "title": "Eat some sweet", "description": "Eat some sweet", "date": 1682197500},
-    {"id": 5, "title": "Go to the bad in May", "description": "Go to the bad May", "date": 1684565222}
+    {
+      "id": 1,
+      "title": "Go to the bad wow",
+      "description": "Go to the bad",
+      "date": 1681799875
+    },
+    {
+      "id": 2,
+      "title": "Go to the magazine",
+      "description": "Go to the magazine",
+      "date": 1681800423
+    },
+    {
+      "id": 3,
+      "title": "Go to the bad in March",
+      "description": "Go to the bad March",
+      "date": 1679122022
+    },
+    {
+      "id": 4,
+      "title": "Eat some sweet",
+      "description": "Eat some sweet",
+      "date": 1682197500
+    },
+    {
+      "id": 5,
+      "title": "Go to the bad in May",
+      "description": "Go to the bad May",
+      "date": 1684565222
+    },
+    {
+      "title": "New event",
+      "description": "some text",
+      "date": "1682206906",
+      "id": 6
+    },
+    {
+      "title": "and New event",
+      "description": "text",
+      "date": "1682207115",
+      "id": 7
+    },
+    {
+      "title": "Ones mor",
+      "description": "some text",
+      "date": "1682207206",
+      "id": 8
+    }
   ]
 }
