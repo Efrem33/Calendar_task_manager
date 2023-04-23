@@ -2,7 +2,7 @@
   "events": [
     {
       "id": 1,
-      "title": "Go to the bad wow",
+      "title": "Go to the bad",
       "description": "Go to the bad",
       "date": 1681799875
     },
@@ -37,15 +37,9 @@
       "id": 6
     },
     {
-      "title": "and New event",
-      "description": "text",
-      "date": "1682207115",
-      "id": 7
-    },
-    {
-      "title": "Ones mor",
-      "description": "some text",
-      "date": "1682207206",
+      "title": "my B-day",
+      "description": "its my day",
+      "date": "1681160400",
       "id": 8
     }
   ]

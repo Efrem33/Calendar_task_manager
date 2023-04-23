@@ -103,8 +103,8 @@ function App() {
     });
   },[today]);
 
-  const openFormHandler = (methodName, eventForUpdate) => {
-    setEvent(eventForUpdate || defaultEvent);
+  const openFormHandler = (methodName, eventForUpdate, dayItem) => {
+    setEvent(eventForUpdate || {...defaultEvent, date: dayItem.format('X')});
     satShadowForm(true);
     setMethod(methodName);
   };
@@ -145,6 +145,25 @@ function App() {
     });
   };
 
+  const removeEventHendler = () => {
+    const fetchUrl = `${url}/events/${event.id}`;
+    const httpMethod = 'DELETE';
+
+    fetch(fetchUrl, {
+      method: httpMethod,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+    .then(res => res.json())
+    .then(res => {
+      console.log(res);
+      setEvents(prevState => prevState.filter(eventEl => eventEl.id !== event.id));
+      
+      canselButtonHendler();
+    });
+  };
+
   return (
     <>
     {
@@ -163,6 +182,12 @@ function App() {
             <ButtonsWrapper>
               <button onClick={canselButtonHendler} >Cansel</button>  
               <button onClick={eventFetchHendler} >{method}</button>  
+              {
+                method === 'Update' ? (
+                  <button onClick={removeEventHendler} >Remove</button> 
+                ) : null
+              }
+               
             </ButtonsWrapper>
           </FormWrapper>
         </FromPositionWrapper>
