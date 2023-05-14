@@ -6,6 +6,7 @@ import { Title } from '../title';
 import { Monitor } from '../monitor';
 import { CalendarGrid } from '../calendarGrid';
 import styled from 'styled-components';
+import { CreateEven } from '../createEvent';
 
 const ShadowWrapper = styled('div')`
   border-top: 1px solid #737374;
@@ -32,7 +33,7 @@ const FromPositionWrapper = styled('div')`
 `;
 
 const FormWrapper = styled(ShadowWrapper)`
-  width: 200px;
+  min-width: 200px;
   background-color: #1E1F21;
   color: #DDDDDD;
   box-shadow: unset;
@@ -73,6 +74,12 @@ const defaultEvent = {
   date: moment().format('X')
 };
 
+const tipeEventOptions = [
+  {key: 1, value: "Стрейчинг"},
+  {key: 2, value: "Индивидуальное занятие"}
+];
+
+
 function App() {
 
   moment.updateLocale( "ru",{week:{dow: 1}});
@@ -90,6 +97,8 @@ function App() {
   const [event, setEvent] = useState(null);
   const [events, setEvents] = useState([]);
 
+  const [openEventSelect, setOpenEventSelect] = useState(false);
+
 
   const startDateQuery = startDay.clone().format('X');
   const endDateQuery = startDay.clone().add(totalDays, 'days').format('X');
@@ -102,6 +111,10 @@ function App() {
       setEvents(res);
     });
   },[today]);
+
+  const openSelect = () => {
+
+  };
 
   const openFormHandler = (methodName, eventForUpdate, dayItem) => {
     setEvent(eventForUpdate || {...defaultEvent, date: dayItem.format('X')});
@@ -159,7 +172,6 @@ function App() {
     .then(res => {
       console.log(res);
       setEvents(prevState => prevState.filter(eventEl => eventEl.id !== event.id));
-      
       canselButtonHendler();
     });
   };
@@ -170,6 +182,15 @@ function App() {
       isShadowForm ? (
         <FromPositionWrapper onClick={canselButtonHendler} >
           <FormWrapper onClick={e=>e.stopPropagation()}>
+          {
+                method !== 'Update' ? (
+                  <CreateEven 
+                    tipeEventOptions={tipeEventOptions}
+                    openEventSelect={openEventSelect}
+                    setOpenEventSelect={setOpenEventSelect}
+                    />
+                ) : null
+          }
             <EventTitle 
               value={event.title} 
               onChange={e => changeEventHendler(e.target.value, 'title')}
@@ -177,7 +198,6 @@ function App() {
             <EventBody 
               value={event.description}               
               onChange={e => changeEventHendler(e.target.value, 'description')} 
-
             />
             <ButtonsWrapper>
               <button onClick={canselButtonHendler} >Cansel</button>  

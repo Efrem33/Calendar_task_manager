@@ -11,8 +11,8 @@ const GridWrapper = styled.div`
 `;
 
 const CellWrapper = styled.div`
-    min-width: 140px;
-    min-height: ${props => props.isHeader ? 24 : 80}px;
+    min-width: 25vh;
+    min-height: ${props => props.isHeader ? 24 : 100}px;
     background-color: ${props => props.isWeekend ? '#272829' : '#1E1F21'};
     color: ${props => props.isSelectedMonth ? '#DDDCDD' : '#555759'};
 `;
